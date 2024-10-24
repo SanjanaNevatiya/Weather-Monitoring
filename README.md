@@ -1,6 +1,8 @@
 # Weather-Monitoring
 
 ## Overview
+
+Check the entire project on master branch.
 The Weather Monitoring Application is a Java-based application designed to fetch, store, and summarize weather data for various cities using the OpenWeatherMap API. It provides functionality to retrieve real-time weather information and generate daily weather summaries.
 
 ## Features
