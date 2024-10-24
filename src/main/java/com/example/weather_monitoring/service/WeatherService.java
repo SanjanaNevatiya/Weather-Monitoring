@@ -10,6 +10,7 @@ import com.example.weather_monitoring.repository.WeatherDataRepository;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -33,13 +34,16 @@ public class WeatherService {
     private WeatherDataRepository weatherDataRepository;
 
 
-    private final String API_KEY = "Your_Api_key";
-    private final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=" + API_KEY;
+    @Value("${weather.api.key}")
+    private String apiKey;
+
+    private final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s";
     
 
     public WeatherData fetchWeatherData(String city) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = String.format(BASE_URL, city);
+        String url = String.format(BASE_URL, city, apiKey);
+
         WeatherResponse response = restTemplate.getForObject(url, WeatherResponse.class);
 
         if (response == null) {
